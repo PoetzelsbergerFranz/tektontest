@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-webapp
+  namespace: tekton-webapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tekton-webapp
+  template:
+    metadata:
+      labels:
+        app: tekton-webapp
+    spec:
+      containers:
+      - name: web-container
+        image: DEIN_DOCKER_USER/website-image:latest # Wird von Jenkins befüllt
+        ports:
+        - containerPort: 8080

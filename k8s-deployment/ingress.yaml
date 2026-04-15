@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: tekton-webapp
+ namespace: tekton-webapp
+ annotations:
+   cert-manager.io/cluster-issuer: "letsencrypt"
+   traefik.ingress.kubernetes.io/router.entrypoints: websecure
+spec:
+ tls:
+   - hosts:
+       - tekton-webapp.azure.poetzelsberger.net
+     secretName: tls-tekton-webapp-ingress-http
+ rules:
+   - host: tekton-webapp.azure.poetzelsberger.net
+     http:
+       paths:
+         - path: /
+           pathType: Prefix
+           backend:
+             service:
+               name: tekton-webapp
+               port:
+                number: 80

@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: web-container
-        image: DEIN_DOCKER_USER/website-image:latest # Wird von Jenkins befüllt
+        image: DEIN_DOCKER_USER/website-image:latest # Wird von tekton pipeline befüllt
         ports:
         - containerPort: 8080

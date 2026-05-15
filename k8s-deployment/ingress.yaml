@@ -1,24 +1,26 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
 metadata:
- name: tekton-webapp
- namespace: tekton-webapp
- annotations:
-   cert-manager.io/cluster-issuer: "letsencrypt"
-   traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  name: tekton-webapp
+  namespace: tekton-webapp
+
 spec:
- tls:
-   - hosts:
-       - tekton-webapp.azure.poetzelsberger.net
-     secretName: tls-tekton-webapp-ingress-http
- rules:
-   - host: tekton-webapp.azure.poetzelsberger.net
-     http:
-       paths:
-         - path: /
-           pathType: Prefix
-           backend:
-             service:
-               name: tekton-webapp
-               port:
-                number: 80
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    # Rule on the Host
+    match: Host(`tekton-webapp.azure.poetzelsberger.net`)
+    # Attach a middleware
+    services:
+    # Target a Kubernetes Support
+    - kind: Service
+      name: tekton-webapp
+      namespace: tekton-webapp
+      # Customize the connection between Traefik and the backend
+      port: 80
+  tls:
+    # Generate a TLS certificate using a certificate resolver
+    certResolver: foo
+    domains:
+    - main: tekton-webapp.azure.poetzelsberger.net

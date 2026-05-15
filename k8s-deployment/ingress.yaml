@@ -21,6 +21,6 @@ spec:
       port: 80
   tls:
     # Generate a TLS certificate using a certificate resolver
-    certResolver: foo
+    certResolver: letsencrypt
     domains:
     - main: tekton-webapp.azure.poetzelsberger.net

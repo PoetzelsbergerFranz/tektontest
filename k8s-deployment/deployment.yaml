@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: web-container
-        image: freecloud.azurecr.io/tekton-webapp/my-app:latest
+        image: freecloud.azurecr.io/tekton-webapp:latest
         ports:
         - containerPort: 8080

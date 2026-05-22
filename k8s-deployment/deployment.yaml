@@ -13,6 +13,8 @@ spec:
       labels:
         app: tekton-webapp
     spec:
+      imagePullSecrets:
+      - name: acr-token-secret
       containers:
       - name: web-container
         image: freecloud.azurecr.io/tekton-webapp:latest
